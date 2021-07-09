@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7d3035a1dd9e8d7fbdbbc1910148913e5d21bb03
 
 ## Getting started
 
@@ -14,4 +18,8 @@ This project includes:
 2. Django commands for renaming your project and creating a superuser
 3. A cli tool for setting environment variables for deployment
 
+<<<<<<< HEAD
 ---
+=======
+---
+>>>>>>> 7d3035a1dd9e8d7fbdbbc1910148913e5d21bb03
