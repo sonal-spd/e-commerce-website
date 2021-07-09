@@ -1,7 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, View
 from .models import Item, Order, OrderItem
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 # Create your views here.
 
@@ -19,12 +21,26 @@ def checkout(request):
 
 class HomeView(ListView):
     model = Item
+    paginate_by = 1
     template_name = "home-page.html"
 
 
 class ItemDetailView(DetailView):
     model = Item
     template_name = "product-page.html"
+
+
+class OrderSummaryView(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            context = {
+                'object': order
+            }
+            return render(self.request, 'order_summary.html', context)
+        except ObjectDoesNotExist:
+            messages.warning(self.request, "You do not have an active order")
+            return redirect("/")
 
 
 def add_to_cart(request, slug):

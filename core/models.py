@@ -22,6 +22,7 @@ class Item(models.Model):
         choices=Category_choices, max_length=2, default="S")
     label = models.CharField(choices=Label_choices, max_length=1, default="P")
     slug = models.SlugField()
+
     desc = models.CharField(max_length=200, default=title)
 
     def __str__(self):
